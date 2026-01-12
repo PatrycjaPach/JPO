@@ -116,7 +116,7 @@ public:
         }
         return *this;
     }
-    /*MULTIPLICATION*/
+    /*MULTIPLICATION**/
     Matrix operator*(const Matrix<T>& other) const{
         vector<vector<T>> v;
         v.resize(_matrix.size());
@@ -139,6 +139,31 @@ public:
             }
         }
         return Matrix(v);
+    }
+    /*MULTIPLICATION *=*/
+    Matrix& operator*=(const Matrix<T>& other){
+        vector<vector<T>> v;
+        v.resize(_matrix.size());
+        
+        if(_matrix[0].size()!=other._matrix.size()){
+            throw std::invalid_argument("The size of the columns of one matrix must match the size of the rows of the other");
+        }
+
+        for(int i=0; i<_matrix.size(); i++){
+            v[i].resize(other._matrix[0].size());
+        }
+
+        for(int i=0; i<_matrix.size(); i++){ //rows A
+            for(int j=0; j<other._matrix[0].size(); j++){ //columns B
+                T sum=0;
+                for(int k=0; k<_matrix[0].size(); k++){
+                    sum+=_matrix[i][k]*other._matrix[k][j];
+                }
+                v[i][j]=sum;
+            }
+        }
+        _matrix=v;
+        return *this;
     }
     /*COMPARISIONS*/
     bool operator==(const Matrix<T>& other) const{       
@@ -203,6 +228,7 @@ public:
         return Matrix(v);
     }
 
+    
     /*---VOID---*/
     void read(){
         for(int i=0; i<_matrix.size(); i++){

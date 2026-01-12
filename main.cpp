@@ -78,13 +78,22 @@ int main(){
     }
     cout<<endl;
 
-    //multiplication
+    //multiplication *
     try{
         pp::Matrix<int> o6=o2*o3;
         o6.read();
     } catch(std::invalid_argument const& ex){
         cout<<ex.what()<<endl;
     }
+
+    //multiplication *=
+    try{
+        o2*=o3;
+        o2.read();
+    } catch(std::invalid_argument const& ex){
+        cout<<ex.what()<<endl;
+    }
+    cout<<endl;
 
     //compromision and contraddiction
     cout<<endl;
@@ -109,7 +118,7 @@ int main(){
         cout<<ex.what()<<endl;
     }
     cout<<endl;
-    
+
     //transpoze
     o2.read();
     o2=o2.transpose();
