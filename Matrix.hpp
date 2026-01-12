@@ -13,10 +13,11 @@ class Matrix{
 private:
     vector<vector<T>> _matrix;
 public:
-    //deafult construcotr
-    Matrix(): Matrix<T>(vector<vector<T>>{{0}}){}
+    /*---CONSTRUCTORS---*/
 
-    //parametrized constructor
+    /*DEAFULT*/
+    Matrix(): Matrix<T>(vector<vector<T>>{{0}}){}
+    /*PARAMETRIZED*/
     Matrix(const vector<vector<T>> & matrix): _matrix(matrix){
         if(matrix.empty()){
             cout<<"Matrix must have arguments"<<endl;
@@ -29,9 +30,8 @@ public:
             }
         }
     }
-
-    //setter, getter
-
+    
+    /*---SETTER AND GETTER---*/
     void setMatrix(size_t a, size_t b, size_t c){
         if(a<_matrix.size() && b<_matrix[0].size()){
             _matrix[a][b]=c;
@@ -45,8 +45,8 @@ public:
         return _matrix[a][b];
     }
 
-    //overloading
-    /*ADD*/
+    /*---OVERLOADING---*/
+    /*ADD+*/
     Matrix operator+(const Matrix<T>& other) const{
         vector<vector<T>> v;
         v.resize(_matrix.size());
@@ -67,7 +67,21 @@ public:
         }
         return Matrix(v);
     }
-    /*SUBSTRACTION*/
+    /*ADD+=*/
+    Matrix& operator+=(const Matrix<T>& other){
+        if(_matrix.size()!=other._matrix.size() || 
+        _matrix[0].size()!=other._matrix[0].size()){
+            throw std::invalid_argument("Matrices must have the same size"); 
+        }
+
+        for(int i=0; i<_matrix.size(); i++){
+            for(int j=0; j<_matrix[0].size(); j++){
+                _matrix[i][j]+=other._matrix[i][j];
+            }
+        }
+        return *this;
+    }
+    /*SUBSTRACTION-*/
     Matrix operator-(const Matrix<T>& other) const{
         vector<vector<T>> v;
         v.resize(_matrix.size());
@@ -88,7 +102,20 @@ public:
         }
         return Matrix(v);
     }
-    
+    /*SUBSTRACTION-=*/
+    Matrix& operator-=(const Matrix<T>& other){
+        if(_matrix.size()!=other._matrix.size() || 
+        _matrix[0].size()!=other._matrix[0].size()){
+            throw std::invalid_argument("Matrices must have the same size"); 
+        }
+
+        for(int i=0; i<_matrix.size(); i++){
+            for(int j=0; j<_matrix[0].size(); j++){
+                _matrix[i][j]-=other._matrix[i][j];
+            }
+        }
+        return *this;
+    }
     /*MULTIPLICATION*/
     Matrix operator*(const Matrix<T>& other) const{
         vector<vector<T>> v;
@@ -129,9 +156,7 @@ public:
         }
         return true;
     }
-
     /*CONTRADICTION*/
-
     bool operator!=(const Matrix<T>& other) const{       
         if(_matrix.size()!=other._matrix.size() || 
         _matrix[0].size()!=other._matrix[0].size()){
@@ -148,7 +173,6 @@ public:
         return false;
     }
     /*SCALAR MULTIPLICATION*/
-
     Matrix operator*(const T& scalar) const{
         vector<vector<T>> v;
         v.resize(_matrix.size());
@@ -163,7 +187,6 @@ public:
         }
         return Matrix(v);
     }
-
     /*SCALAR DIVISION*/
     Matrix operator/(const T& scalar) const{
         vector<vector<T>> v;
@@ -179,7 +202,8 @@ public:
         }
         return Matrix(v);
     }
-    //void 
+
+    /*---VOID---*/
     void read(){
         for(int i=0; i<_matrix.size(); i++){
             for(int j=0; j<_matrix[0].size(); j++){
@@ -188,7 +212,7 @@ public:
         cout<<endl;
         } 
     }
-
+    /*DETERMINANT*/
     double determinant(){
         double det=1.0;
         auto mtx=_matrix;
@@ -213,6 +237,25 @@ public:
         }
 
         return det;
+    }
+    /*TRANSPOSE*/
+    Matrix<T> transpose() {
+        auto mtx=_matrix;
+        vector<vector<T>> v;
+        int n=_matrix.size();
+        int m=_matrix[0].size();
+        
+        v.resize(m);
+        for(int i=0; i<m; i++){
+            v[i].resize(n);
+        }
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                v[j][i] = _matrix[i][j];
+            }
+        }
+        return Matrix<T>(v);
     }
 }; //class
 

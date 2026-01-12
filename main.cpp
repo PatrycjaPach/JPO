@@ -42,6 +42,7 @@ int main(){
     }
     cout<<endl;
 
+    //good matrix addition
     try{
         pp::Matrix<int> o6=o2+o3;
         o6.read();
@@ -50,6 +51,16 @@ int main(){
     }
     cout<<endl;
 
+    //matrix addition with += operator
+    try{
+        o2+=o3;
+        o2.read();
+    } catch(std::invalid_argument const& ex){
+        cout<<ex.what()<<endl;
+    }
+    cout<<endl;
+
+    //matrix substraction
     try{
         pp::Matrix<int> o6=o2-o3;
         o6.read();
@@ -58,6 +69,16 @@ int main(){
     }
     cout<<endl;
 
+    //matrix substraction with -=
+    try{
+        o2-=o3;
+        o2.read();
+    } catch(std::invalid_argument const& ex){
+        cout<<ex.what()<<endl;
+    }
+    cout<<endl;
+
+    //multiplication
     try{
         pp::Matrix<int> o6=o2*o3;
         o6.read();
@@ -65,25 +86,39 @@ int main(){
         cout<<ex.what()<<endl;
     }
 
+    //compromision and contraddiction
     cout<<endl;
     cout<<(o2==o3)<<endl;
     cout<<(o2!=o3)<<endl;
 
+    //miltiplication with scalar
     cout<<endl;
     o4=o2*5;
     o4.read();
 
+    //scalar division
     cout<<endl;
     o5=o5/5;
     o5.read();
-
     cout<<endl;
+
+    //determinant
     try{
         cout<<o2.determinant()<<endl;
     }catch(std::invalid_argument const& ex){
         cout<<ex.what()<<endl;
     }
+    cout<<endl;
+    
+    //transpoze
+    o2.read();
+    o2=o2.transpose();
+    cout<<endl;
+    o2.read();
 
+    cout<<endl;
+    /*OTHER MATRIX*/
+    //diagonal
     pp::Diagonal<int> d(vector<int>{1,2,3});
     d.read();
     cout<<endl;
@@ -93,6 +128,7 @@ int main(){
         cout<<ex.what()<<endl;
     }
     
+    //determinant
     cout<<endl;
     pp::Identity<int> i(6);
     i.read();
