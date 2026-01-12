@@ -24,7 +24,7 @@ int main(){
     //geter and seter
     o2.setMatrix(1,2,80);
     try{
-        cout<<o2.getMatrix(1,1)<<endl;
+        cout<<o2.getMatrix(1,2)<<endl;
     } catch(std::invalid_argument const& e){
         cout<<e.what()<<endl;
     }
@@ -66,6 +66,7 @@ int main(){
 
     cout<<endl;
     cout<<(o2==o3)<<endl;
+    cout<<(o2!=o3)<<endl;
 
     cout<<endl;
     o4=o2*5;
@@ -74,5 +75,12 @@ int main(){
     cout<<endl;
     o5=o5/5;
     o5.read();
+
+    cout<<endl;
+    try{
+        cout<<o2.determinant()<<endl;
+    }catch(std::invalid_argument const& ex){
+        cout<<ex.what()<<endl;
+    }
 
 }

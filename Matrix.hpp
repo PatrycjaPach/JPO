@@ -131,6 +131,24 @@ public:
         }
         return true;
     }
+
+    /*CONTRADICTION*/
+
+    bool operator!=(const Matrix<T>& other) const{       
+        if(_matrix.size()!=other._matrix.size() || 
+        _matrix[0].size()!=other._matrix[0].size()){
+            return false;
+        }
+
+        for(int i=0; i<_matrix.size(); i++){
+            for(int j=0; j<_matrix[i].size(); j++){
+                if(_matrix[i][j]!=other._matrix[i][j]){
+                    return true;
+                } 
+            }
+        }
+        return false;
+    }
     /*SCALAR MULTIPLICATION*/
 
     Matrix operator*(const T& scalar) const{
@@ -171,6 +189,32 @@ public:
             }
         cout<<endl;
         } 
+    }
+
+    double determinant(){
+        double det=1.0;
+        auto mtx=_matrix;
+        int n=_matrix.size();  
+        
+        if(mtx.size()!=mtx[0].size()){
+            throw std::invalid_argument("Rows and columns size must be the same");
+        }
+
+        for(int k=0; k<n; k++){
+            if(mtx[k][k]==0) return 0.0;
+            for(int r=k+1; r<n; r++){
+                T m=mtx[r][k]/mtx[k][k];
+                for(int i=k+1; i<n; i++){
+                    mtx[r][i]-=m*mtx[k][i];
+                }//for3
+            }//for2
+        }//for1
+
+        for(int i=0; i<n; i++){
+            det*=mtx[i][i];
+        }
+
+        return det;
     }
 }; //class
 
